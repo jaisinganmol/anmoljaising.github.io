@@ -94,6 +94,29 @@
         overflow: hidden;
       }
 
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, #2563eb, #60a5fa, #3b82f6);
+        background-size: 300% 300%;
+        animation: gradientMove 20s ease infinite;
+        opacity: 0.15;
+        z-index: 0;
+      }
+
+      @keyframes gradientMove {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
       .hero-bg {
         background: url("https://jaisinganmol.github.io/anmoljaising.github.io/img/boston-sunset-evening-skyscrapers-cityscape.jpg")
           center/cover no-repeat;
@@ -317,6 +340,11 @@
         position: relative;
         transition: color var(--transition-duration);
       }
+      .nav-link.active {
+        color: var(--primary);
+        font-weight: 600;
+        text-shadow: 0 1px 5px rgba(37, 99, 235, 0.3);
+      }
 
       body.dark-mode .nav-link {
         color: #f0f0f0;
@@ -365,11 +393,20 @@
           opacity var(--transition-duration) ease-out,
           transform var(--transition-duration) ease-out;
         flex: 1;
+        scroll-margin-top: 80px;
       }
 
       section.visible {
         opacity: 1;
         transform: translateY(0);
+        transition:
+          opacity 0.8s ease-out,
+          transform 0.8s ease-out;
+      }
+
+      section:not(.visible) {
+        opacity: 0;
+        transform: translateY(40px);
       }
 
       .section-title {
@@ -383,11 +420,13 @@
       .section-title::after {
         content: "";
         position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 50%;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
         height: 3px;
-        background-color: var(--primary);
+        background: linear-gradient(to right, var(--primary), #60a5fa);
+        border-radius: 8px;
       }
 
       .about-content {
@@ -708,12 +747,8 @@
       }
 
       .project-card:hover {
-        transform: perspective(1000px) translateY(-12px) translateZ(20px)
-          scale(1.03);
-        box-shadow:
-          0 20px 40px rgba(37, 99, 235, 0.3),
-          0 10px 20px rgba(0, 0, 0, 0.2);
-        border-color: rgba(37, 99, 235, 0.5);
+        transform: translateY(-10px) scale(1.02);
+        box-shadow: 0 20px 40px rgba(37, 99, 235, 0.15);
       }
 
       .project-card:hover::before {
@@ -799,16 +834,7 @@
       }
 
       .project-title::after {
-        content: "";
-        position: absolute;
-        bottom: -8px;
-        left: 0;
-        width: 50px;
-        height: 4px;
-        background: var(--primary);
-        transition: all 0.4s ease;
-        transform-origin: left center;
-        transform: translateZ(30px);
+        width: 80px;
       }
 
       .project-card:hover .project-title {
@@ -1323,6 +1349,8 @@
         }
       }
     </style>
+
+    <style></style>
   </head>
   <body>
     <!-- Header Section -->
@@ -1379,12 +1407,7 @@
             <a href="#projects" class="nav-link">Projects</a>
             <a href="#education" class="nav-link">Education</a>
             <a href="#contact" class="nav-link">Contact</a>
-            <a
-              href="https://jaisinganmol.github.io/Anmol%20Jaising%20-%20Resume.pdf"
-              class="nav-link"
-              Resume
-              onclick="viewAndDownload(event)"
-            >
+            <a href="..." class="nav-link" onclick="viewAndDownload(event)">
               <i class="fas fa-file-download"></i> Resume
             </a>
           </div>
@@ -1984,7 +2007,7 @@
           </a>
         </div>
         <p class="footer-copyright">
-          © 2025 Anmol Jaising. All rights reserved.
+          © 202 Anmol Jaising. All rights reserved.
         </p>
       </div>
     </footer>
@@ -2109,6 +2132,22 @@
         },
         { threshold: 0.1 }
       );
+
+      window.addEventListener("scroll", () => {
+        const links = document.querySelectorAll(".nav-link");
+        const sections = document.querySelectorAll("section");
+        const scrollPos = window.scrollY + 100;
+
+        sections.forEach((section, index) => {
+          if (
+            scrollPos >= section.offsetTop &&
+            scrollPos < section.offsetTop + section.offsetHeight
+          ) {
+            links.forEach((link) => link.classList.remove("active"));
+            links[index].classList.add("active");
+          }
+        });
+      });
 
       sections.forEach((section) => observer.observe(section));
 
