@@ -1437,7 +1437,7 @@
             <a href="#projects" class="nav-link">Projects</a>
             <a href="#education" class="nav-link">Education</a>
             <a href="#contact" class="nav-link">Contact</a>
-            <a href="..." class="nav-link" onclick="viewAndDownload(event)">
+            <a href="#" class="nav-link" onclick="viewAndDownload(event)">
               <i class="fas fa-file-download"></i> Resume
             </a>
           </div>
@@ -2054,18 +2054,10 @@
       function viewAndDownload(e) {
         e.preventDefault();
         const url =
-          "https://github.com/jaisinganmol/anmoljaising.github.io/blob/main/Anmol%20Jaising%20-%20Resume.pdf;
+          "https://github.com/jaisinganmol/anmoljaising.github.io/raw/main/Anmol%20Jaising%20-%20Resume.pdf";
 
-        // Open in new tab
+        // Open in new tab (downloadable raw PDF)
         window.open(url, "_blank");
-
-        // // Trigger download
-        // const link = document.createElement("a");
-        // link.href = url;
-        // link.download = "Anmol_Kumar_Jaising_Resume.pdf";
-        // document.body.appendChild(link);
-        // link.click();
-        // document.body.removeChild(link);
       }
 
       // Mobile menu toggle
