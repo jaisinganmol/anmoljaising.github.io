@@ -661,29 +661,18 @@
         height: 60px;
       }
 
-      /* Optional: Desktop float */
-      .timeline-content .company-logo {
-        float: right;
-      }
-
       /* Responsive Fix: Mobile layout for logo */
       @media (max-width: 768px) {
-        .company-logo {
-          position: static;
+        .timeline-content .company-logo {
+          position: relative !important;
+          float: none !important;
           display: flex;
           justify-content: center;
           align-items: center;
-          margin-bottom: 1rem;
-          margin-left: auto;
-          margin-right: auto;
+          margin: 0 auto 1rem auto;
           width: 60px;
           height: 60px;
           z-index: 1;
-        }
-
-        .timeline-content .company-logo {
-          float: none;
-          display: block;
         }
 
         .timeline-content {
